@@ -30,7 +30,7 @@ with open(CVPR_DATA) as cvpr_f, open(CVPR_DATA_W_PDF) as cvpr_pdf_f, open("sampl
             if paper_title in cvpr_pdf_data:
                 paper_link = cvpr_pdf_data[paper_title]['url']
                 md_link = "[Paper](www.google.com)"
-                table.append([paper_id, paper_title, md_link])
+                table.append([paper_id, paper_title, "Hi"])
         df = pd.DataFrame(table, columns=["Paper Id", "Paper Title", "Link"])
         content  = markdownTable(df.to_dict(orient='records')).setParams(row_sep = 'markdown', quote = False, padding_weight='centerright').getMarkdown()
         md.write(content + "\n\n")
