@@ -10,12 +10,15 @@ from markdownTable import markdownTable
 
 CVPR_DATA  = "../cvpr_data.json"
 CVPR_DATA_W_PDF = "../cvf_data_w_pdf.json"
-TARGET_DIR = "../data"
+README = "../README.md"
 
 
-with open(CVPR_DATA) as cvpr_f, open(CVPR_DATA_W_PDF) as cvpr_pdf_f, open("sample.md", "w") as md:
+with open(CVPR_DATA) as cvpr_f, open(CVPR_DATA_W_PDF) as cvpr_pdf_f, open(README, "w") as md:
     cvpr_data = json.load(cvpr_f)
     cvpr_pdf_data = json.load(cvpr_pdf_f)
+
+    md.write("# CVPR-2022\n")
+    md.write("Papers and  Code from CVPR 2022, including scripts to extract them\n\n")
 
     for paper_cat, papers in cvpr_data.items():        
         
@@ -29,8 +32,8 @@ with open(CVPR_DATA) as cvpr_f, open(CVPR_DATA_W_PDF) as cvpr_pdf_f, open("sampl
             paper_id = paper['paperId']
             if paper_title in cvpr_pdf_data:
                 paper_link = cvpr_pdf_data[paper_title]['url']
-                md_link = "[Paper](www.google.com)"
-                table.append([paper_id, paper_title, "Hi"])
+                md_link = f"[Paper]({paper_link})"
+                table.append([paper_id, paper_title, md_link])
         df = pd.DataFrame(table, columns=["Paper Id", "Paper Title", "Link"])
         content  = markdownTable(df.to_dict(orient='records')).setParams(row_sep = 'markdown', quote = False, padding_weight='centerright').getMarkdown()
         md.write(content + "\n\n")
