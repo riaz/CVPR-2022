@@ -19,7 +19,7 @@ with open(CVPR_DATA) as cvpr_f, open(CVPR_DATA_W_PDF) as cvpr_pdf_f, open("sampl
 
     for paper_cat, papers in cvpr_data.items():        
         
-        md.write(f"### {paper_cat} \n")
+        md.write(f"\n### {paper_cat} \n")
 
         # generating the dataframe
         table = []
@@ -29,9 +29,8 @@ with open(CVPR_DATA) as cvpr_f, open(CVPR_DATA_W_PDF) as cvpr_pdf_f, open("sampl
             paper_id = paper['paperId']
             if paper_title in cvpr_pdf_data:
                 paper_link = cvpr_pdf_data[paper_title]['url']
-                md_link = f"![Paper](paper_link)"
+                md_link = f"[Paper]({paper_link})"
                 table.append([paper_id, paper_title, paper_link])
         df = pd.DataFrame(table, columns=["Paper Id", "Paper Title", "Link"])
-        content  = markdownTable(df.to_dict(orient='records')).getMarkdown()
-
+        content  = markdownTable(df.to_dict(orient='records')).setParams(row_sep = 'markdown', quote = False, padding_weight='centerright').getMarkdown()
         md.write(content + "\n\n")
