@@ -31,7 +31,7 @@ with open(CVPR_DATA) as cvpr_f, open(CVPR_DATA_W_PDF) as cvpr_pdf_f, open(README
             paper_title = paper['title'] 
             paper_id = paper['paperId']
             if paper_title in cvpr_pdf_data:
-                paper_link = cvpr_pdf_data[paper_title]['url']
+                paper_link = cvpr_pdf_data[paper_title]['url'][3:]
                 md_link = f"[Paper]({paper_link})"
                 table.append([paper_id, paper_title, md_link])
         df = pd.DataFrame(table, columns=["Paper Id", "Paper Title", "Link"])
